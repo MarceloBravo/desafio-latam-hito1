@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">busticket</a> &gt; <a href="index.source.html" class="el_package">com.mabc.dto</a> &gt; <span class="el_source">ProductDTO.java</span></div><h1>ProductDTO.java</h1><pre class="source lang-java linenums">package com.mabc.dto;
+
+import java.util.List;
+import java.util.ArrayList;
+
+public class ProductDTO {
+    private Long id;
+    private MarkDTO mark;
+<span class="pc" id="L9">    private List&lt;CategoryDTO&gt; categories = new ArrayList&lt;&gt;();</span>
+    private String name;
+    private String description;
+    private int stock;
+    private double weight;
+    private double priceCost;
+    private double priceSale;
+
+<span class="nc" id="L17">    public ProductDTO() {</span>
+<span class="nc" id="L18">    }</span>
+
+<span class="fc" id="L20">    public ProductDTO(Long id, MarkDTO mark, CategoryDTO category, String name, String description, int stock, double weight, double priceCost, double priceSale) {</span>
+<span class="fc" id="L21">        this.id = id;</span>
+<span class="fc" id="L22">        this.mark = mark;</span>
+<span class="fc" id="L23">        this.categories.add(category);</span>
+<span class="fc" id="L24">        this.name = name;</span>
+<span class="fc" id="L25">        this.description = description;</span>
+<span class="fc" id="L26">        this.stock = stock;</span>
+<span class="fc" id="L27">        this.weight = weight;</span>
+<span class="fc" id="L28">        this.priceCost = priceCost;</span>
+<span class="fc" id="L29">        this.priceSale = priceSale;</span>
+<span class="fc" id="L30">    }</span>
+
+    // Getters and Setters
+    public Long getId() {
+<span class="fc" id="L34">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L38">        this.id = id;</span>
+<span class="nc" id="L39">    }</span>
+
+    public MarkDTO getMark() {
+<span class="fc" id="L42">        return mark;</span>
+    }
+
+    public void setMark(MarkDTO mark) {
+<span class="nc" id="L46">        this.mark = mark;</span>
+<span class="nc" id="L47">    }</span>
+
+    public List&lt;CategoryDTO&gt; getCategories() {
+<span class="fc" id="L50">        return categories;</span>
+    }
+
+    public void setCategories(List&lt;CategoryDTO&gt; categories) {
+<span class="fc" id="L54">        this.categories = categories;</span>
+<span class="fc" id="L55">    }</span>
+
+    public String getName() {
+<span class="fc" id="L58">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L62">        this.name = name;</span>
+<span class="nc" id="L63">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L66">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L70">        this.description = description;</span>
+<span class="nc" id="L71">    }</span>
+
+    public int getStock() {
+<span class="nc" id="L74">        return stock;</span>
+    }
+
+    public void setStock(int stock) {
+<span class="nc" id="L78">        this.stock = stock;</span>
+<span class="nc" id="L79">    }</span>
+
+    public double getWeight() {
+<span class="nc" id="L82">        return weight;</span>
+    }
+
+    public void setWeight(double weight) {
+<span class="nc" id="L86">        this.weight = weight;</span>
+<span class="nc" id="L87">    }</span>
+
+    public double getPriceCost() {
+<span class="fc" id="L90">        return priceCost;</span>
+    }
+
+    public void setPriceCost(double priceCost) {
+<span class="nc" id="L94">        this.priceCost = priceCost;</span>
+<span class="nc" id="L95">    }</span>
+
+    public double getPriceSale() {
+<span class="fc" id="L98">        return priceSale;</span>
+    }
+
+    public void setPriceSale(double priceSale) {
+<span class="nc" id="L102">        this.priceSale = priceSale;</span>
+<span class="nc" id="L103">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

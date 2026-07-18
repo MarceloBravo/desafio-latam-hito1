@@ -1,0 +1,4 @@
+com\mabc\ConsoleCoverageReporter$Counter.class
+com\mabc\ConsoleCoverageReporter.class
+com\mabc\ProductoCrudServiceImplTest.class
+com\mabc\BusLayoutCrudServiceImplTest.class
