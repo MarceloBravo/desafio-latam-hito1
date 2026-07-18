@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">busticket</a> &gt; <a href="index.source.html" class="el_package">com.mabc.services.category</a> &gt; <span class="el_source">CategoryServiceImpl.java</span></div><h1>CategoryServiceImpl.java</h1><pre class="source lang-java linenums">package com.mabc.services.category;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">e-shoping</a> &gt; <a href="index.source.html" class="el_package">com.mabc.services.category</a> &gt; <span class="el_source">CategoryServiceImpl.java</span></div><h1>CategoryServiceImpl.java</h1><pre class="source lang-java linenums">package com.mabc.services.category;
 
 import com.mabc.dto.CategoryDTO;
 import com.mabc.entities.Category;
@@ -11,34 +11,52 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    // Implement the methods defined in the CategoryService interface
-    private final CategoryRepository categoryRepository;
+
+    private final CategoryRepository repository;
     
-<span class="fc" id="L17">    public CategoryServiceImpl(CategoryRepository categoryRepository) {</span>
-<span class="fc" id="L18">        this.categoryRepository = categoryRepository;</span>
+<span class="fc" id="L17">    public CategoryServiceImpl(CategoryRepository repository) {</span>
+<span class="fc" id="L18">        this.repository = repository;</span>
 <span class="fc" id="L19">    }</span>
 
     @Override
-    public CategoryDTO registerCategory(CategoryDTO categoryDTO) {
-        // Implementation for registering a category
-<span class="nc" id="L24">        return null; // Placeholder return statement</span>
+    public CategoryDTO saveCategory(CategoryDTO categoryDTO) {
+<span class="fc" id="L23">        this.validaDatos(categoryDTO);</span>
+<span class="fc" id="L24">        Category category = this.repository.findById(categoryDTO.getId()).orElse(new Category());</span>
+<span class="fc" id="L25">        category.setName(categoryDTO.getName());</span>
+<span class="fc" id="L26">        category.setActive(categoryDTO.getActive());</span>
+
+<span class="fc" id="L28">        Category savedCategory = this.repository.save(category);</span>
+<span class="fc" id="L29">        categoryDTO.setId(savedCategory.getId());</span>
+
+<span class="fc" id="L31">        return categoryDTO;</span>
     }
 
     @Override
     public CategoryDTO getCategoryById(Long id) {
-        // Implementation for retrieving a category by ID
-<span class="nc" id="L30">        return null; // Placeholder return statement</span>
-    }
-
-    @Override
-    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
-        // Implementation for updating a category
-<span class="nc" id="L36">        return null; // Placeholder return statement</span>
+<span class="fc" id="L36">        Category category = this.repository.findById(id).orElse(null);</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (category == null) {</span>
+<span class="fc" id="L38">            return null;</span>
+        }
+<span class="fc" id="L40">        return new CategoryDTO(category.getId(), category.getName(), category.getActive());</span>
     }
 
     @Override
     public void deleteCategory(Long id) {
-        // Implementation for deleting a category
-<span class="nc" id="L42">    }</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if(!this.repository.existsById(id)){</span>
+<span class="fc" id="L46">            throw new IllegalArgumentException(&quot;Category not exist&quot;);</span>
+        }
+<span class="fc" id="L48">        this.repository.deleteById(id);</span>
+<span class="fc" id="L49">    }</span>
+
+    private Boolean validaDatos(CategoryDTO categoryDTO) throws IllegalArgumentException {
+<span class="fc" id="L52">        Boolean isValid = true;       </span>
+<span class="fc bfc" id="L53" title="All 4 branches covered.">        isValid = categoryDTO.getName() != null &amp;&amp; !categoryDTO.getName().isEmpty();</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        isValid = categoryDTO.getActive() != null;</span>
+
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (!isValid) {</span>
+<span class="fc" id="L57">            throw new IllegalArgumentException(&quot;Invalid category data&quot;);</span>
+        }
+<span class="fc" id="L59">        return true;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -11,33 +11,51 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    // Implement the methods defined in the CategoryService interface
-    private final CategoryRepository categoryRepository;
+
+    private final CategoryRepository repository;
     
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CategoryServiceImpl(CategoryRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public CategoryDTO registerCategory(CategoryDTO categoryDTO) {
-        // Implementation for registering a category
-        return null; // Placeholder return statement
+    public CategoryDTO saveCategory(CategoryDTO categoryDTO) {
+        this.validaDatos(categoryDTO);
+        Category category = this.repository.findById(categoryDTO.getId()).orElse(new Category());
+        category.setName(categoryDTO.getName());
+        category.setActive(categoryDTO.getActive());
+
+        Category savedCategory = this.repository.save(category);
+        categoryDTO.setId(savedCategory.getId());
+
+        return categoryDTO;
     }
 
     @Override
     public CategoryDTO getCategoryById(Long id) {
-        // Implementation for retrieving a category by ID
-        return null; // Placeholder return statement
-    }
-
-    @Override
-    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
-        // Implementation for updating a category
-        return null; // Placeholder return statement
+        Category category = this.repository.findById(id).orElse(null);
+        if (category == null) {
+            return null;
+        }
+        return new CategoryDTO(category.getId(), category.getName(), category.getActive());
     }
 
     @Override
     public void deleteCategory(Long id) {
-        // Implementation for deleting a category
+        if(!this.repository.existsById(id)){
+            throw new IllegalArgumentException("Category not exist");
+        }
+        this.repository.deleteById(id);
+    }
+
+    private Boolean validaDatos(CategoryDTO categoryDTO) throws IllegalArgumentException {
+        Boolean isValid = true;       
+        isValid = categoryDTO.getName() != null && !categoryDTO.getName().isEmpty();
+        isValid = categoryDTO.getActive() != null;
+
+        if (!isValid) {
+            throw new IllegalArgumentException("Invalid category data");
+        }
+        return true;
     }
 }

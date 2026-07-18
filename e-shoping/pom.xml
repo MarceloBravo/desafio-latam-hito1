@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.mabc</groupId>
-  <artifactId>busticket</artifactId>
+  <artifactId>e-shoping</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>busticket</name>
+  <name>e-shoping</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
