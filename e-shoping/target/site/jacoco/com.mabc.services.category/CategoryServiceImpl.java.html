@@ -21,42 +21,49 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDTO saveCategory(CategoryDTO categoryDTO) {
 <span class="fc" id="L23">        this.validaDatos(categoryDTO);</span>
-<span class="fc" id="L24">        Category category = this.repository.findById(categoryDTO.getId()).orElse(new Category());</span>
-<span class="fc" id="L25">        category.setName(categoryDTO.getName());</span>
-<span class="fc" id="L26">        category.setActive(categoryDTO.getActive());</span>
 
-<span class="fc" id="L28">        Category savedCategory = this.repository.save(category);</span>
-<span class="fc" id="L29">        categoryDTO.setId(savedCategory.getId());</span>
+        Category category;
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (categoryDTO.getId() == null) {</span>
+<span class="fc" id="L27">            category = new Category();</span>
+        } else {
+<span class="fc" id="L29">            category = this.repository.findById(categoryDTO.getId()).orElse(new Category());</span>
+        }
 
-<span class="fc" id="L31">        return categoryDTO;</span>
+<span class="fc" id="L32">        category.setName(categoryDTO.getName());</span>
+<span class="fc" id="L33">        category.setActive(categoryDTO.getActive());</span>
+
+<span class="fc" id="L35">        Category savedCategory = this.repository.save(category);</span>
+<span class="fc" id="L36">        categoryDTO.setId(savedCategory.getId());</span>
+
+<span class="fc" id="L38">        return categoryDTO;</span>
     }
 
     @Override
     public CategoryDTO getCategoryById(Long id) {
-<span class="fc" id="L36">        Category category = this.repository.findById(id).orElse(null);</span>
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (category == null) {</span>
-<span class="fc" id="L38">            return null;</span>
+<span class="fc" id="L43">        Category category = this.repository.findById(id).orElse(null);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (category == null) {</span>
+<span class="fc" id="L45">            return null;</span>
         }
-<span class="fc" id="L40">        return new CategoryDTO(category.getId(), category.getName(), category.getActive());</span>
+<span class="fc" id="L47">        return new CategoryDTO(category.getId(), category.getName(), category.getActive());</span>
     }
 
     @Override
     public void deleteCategory(Long id) {
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        if(!this.repository.existsById(id)){</span>
-<span class="fc" id="L46">            throw new IllegalArgumentException(&quot;Category not exist&quot;);</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if(!this.repository.existsById(id)){</span>
+<span class="fc" id="L53">            throw new IllegalArgumentException(&quot;Category not exist&quot;);</span>
         }
-<span class="fc" id="L48">        this.repository.deleteById(id);</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L55">        this.repository.deleteById(id);</span>
+<span class="fc" id="L56">    }</span>
 
     private Boolean validaDatos(CategoryDTO categoryDTO) throws IllegalArgumentException {
-<span class="fc" id="L52">        Boolean isValid = true;       </span>
-<span class="fc bfc" id="L53" title="All 4 branches covered.">        isValid = categoryDTO.getName() != null &amp;&amp; !categoryDTO.getName().isEmpty();</span>
-<span class="fc bfc" id="L54" title="All 2 branches covered.">        isValid = categoryDTO.getActive() != null;</span>
+<span class="fc" id="L59">        Boolean isValid = true;       </span>
+<span class="fc bfc" id="L60" title="All 4 branches covered.">        isValid = categoryDTO.getName() != null &amp;&amp; !categoryDTO.getName().isEmpty();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        isValid = categoryDTO.getActive() != null;</span>
 
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (!isValid) {</span>
-<span class="fc" id="L57">            throw new IllegalArgumentException(&quot;Invalid category data&quot;);</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (!isValid) {</span>
+<span class="fc" id="L64">            throw new IllegalArgumentException(&quot;Invalid category data&quot;);</span>
         }
-<span class="fc" id="L59">        return true;</span>
+<span class="fc" id="L66">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

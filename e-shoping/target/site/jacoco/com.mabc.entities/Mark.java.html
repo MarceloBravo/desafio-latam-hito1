@@ -18,11 +18,11 @@ public class Mark {
     @Column(name = &quot;nombre&quot;, nullable = false, length = 100)
     private String name;
 
-<span class="pc" id="L21">    @Column(name = &quot;activo&quot;, nullable = false)</span>
-<span class="pc" id="L22">    private Boolean active = true;</span>
+<span class="fc" id="L21">    @Column(name = &quot;activo&quot;, nullable = false)</span>
+<span class="fc" id="L22">    private Boolean active = true;</span>
     
-<span class="nc" id="L24">    public Mark() {</span>
-<span class="nc" id="L25">    }</span>
+<span class="fc" id="L24">    public Mark() {</span>
+<span class="fc" id="L25">    }</span>
 
 <span class="fc" id="L27">    public Mark(Long id, String name, Boolean active) {</span>
 <span class="fc" id="L28">        this.id = id;</span>
@@ -44,15 +44,15 @@ public class Mark {
     }
 
     public void setName(String name) {
-<span class="nc" id="L47">        this.name = name;</span>
-<span class="nc" id="L48">    }</span>
+<span class="fc" id="L47">        this.name = name;</span>
+<span class="fc" id="L48">    }</span>
 
     public Boolean getActive() {
 <span class="fc" id="L51">        return active;</span>
     }
 
     public void setActive(Boolean active) {
-<span class="nc" id="L55">        this.active = active;</span>
-<span class="nc" id="L56">    }</span>
+<span class="fc" id="L55">        this.active = active;</span>
+<span class="fc" id="L56">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

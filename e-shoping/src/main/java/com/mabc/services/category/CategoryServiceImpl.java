@@ -21,7 +21,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDTO saveCategory(CategoryDTO categoryDTO) {
         this.validaDatos(categoryDTO);
-        Category category = this.repository.findById(categoryDTO.getId()).orElse(new Category());
+
+        Category category;
+        if (categoryDTO.getId() == null) {
+            category = new Category();
+        } else {
+            category = this.repository.findById(categoryDTO.getId()).orElse(new Category());
+        }
+
         category.setName(categoryDTO.getName());
         category.setActive(categoryDTO.getActive());
 

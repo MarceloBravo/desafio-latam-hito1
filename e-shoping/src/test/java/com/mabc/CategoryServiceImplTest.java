@@ -3,6 +3,7 @@ package com.mabc;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -48,8 +49,52 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("Graba una nueva categoría con datos inválidos")
-    public void testSaveCategoryWithInvalidData() {
+    @DisplayName("Actualiza una nueva categoría con datos válidos")
+    public void updateCategoryWithValidData() {
+        // Arrange
+        CategoryDTO categoryDTO = new CategoryDTO(1L, "Electronica", true);
+        Category existsCategory = new Category(1L, "Electronica", true);
+        Category savedCategory = new Category(1L, "Electronica", true);
+
+        when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(existsCategory));
+        when(categoryRepository.save(any(Category.class))).thenReturn(savedCategory);
+
+        // Act
+        CategoryDTO result = categoryService.saveCategory(categoryDTO);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        assertEquals(categoryDTO.getName(), result.getName());
+        assertEquals(categoryDTO.getActive(), result.getActive());
+    }
+
+    @Test
+    @DisplayName("Crea una categoría nueva sin consultar por un id nulo")
+    public void testSaveCategoryWithNullIdDoesNotQueryByNullId() {
+        // Arrange
+        CategoryDTO categoryDTO = new CategoryDTO(null, "Electronics", true);
+        Category savedCategory = new Category(1L, "Electronics", true);
+
+        when(categoryRepository.save(any(Category.class))).thenReturn(savedCategory);
+
+        // Act
+        CategoryDTO result = categoryService.saveCategory(categoryDTO);
+
+        // Assert
+        assertNotNull(result);
+        verify(categoryRepository, never()).findById(any());
+
+        ArgumentCaptor<Category> captor = ArgumentCaptor.forClass(Category.class);
+        verify(categoryRepository).save(captor.capture());
+        assertNull(captor.getValue().getId());
+        assertEquals("Electronics", captor.getValue().getName());
+        assertTrue(captor.getValue().getActive());
+    }
+
+    @Test
+    @DisplayName("Intenta grabar una nueva categoría con datos inválidos")
+    public void trySaveCategoryWithInvalidData() {
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(null, "", null);
 
@@ -62,8 +107,8 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("Graba una nueva categoría con todos los datos nulos")
-    public void testSaveCategoryWithAllPropertiesNull() {
+    @DisplayName("Intenta grabar una nueva categoría con todos los datos nulos")
+    public void trySaveCategoryWithAllPropertiesNull() {
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(null, null, null);
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.mabc.ProductoCrudServiceImplTest" time="0.345" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.mabc.MarkServiceImplTest" time="0.616" tests="11" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -59,15 +59,15 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="getProductById" classname="com.mabc.ProductoCrudServiceImplTest" time="0.161"/>
-  <testcase name="tryToDeleteANonExistentProductAndThrowsException" classname="com.mabc.ProductoCrudServiceImplTest" time="0.004"/>
-  <testcase name="updateProduct" classname="com.mabc.ProductoCrudServiceImplTest" time="0.01"/>
-  <testcase name="deleteProductById" classname="com.mabc.ProductoCrudServiceImplTest" time="0.003"/>
-  <testcase name="tryRegisterANewProductButMarkNotExistsAndThrowsException" classname="com.mabc.ProductoCrudServiceImplTest" time="0.005"/>
-  <testcase name="registerANewProduct" classname="com.mabc.ProductoCrudServiceImplTest" time="0.049"/>
-  <testcase name="tryRegisterANewProductButCategoriesAreNullAndThrowsException" classname="com.mabc.ProductoCrudServiceImplTest" time="0.044"/>
-  <testcase name="tryRegisterANewProductButCategoriesContainNullElementsAndThrowsException" classname="com.mabc.ProductoCrudServiceImplTest" time="0.005"/>
-  <testcase name="getProductByIdAndReturnsNull" classname="com.mabc.ProductoCrudServiceImplTest" time="0.003"/>
-  <testcase name="tryRegisterANewProductButCategoriesAreEmptyListAndThrowsException" classname="com.mabc.ProductoCrudServiceImplTest" time="0.006"/>
-  <testcase name="tryRegisterANewProductButCategoryNotExistsAndThrowsException" classname="com.mabc.ProductoCrudServiceImplTest" time="0.004"/>
+  <testcase name="returnNullWithNotExistsId" classname="com.mabc.MarkServiceImplTest" time="0.39"/>
+  <testcase name="deleteMarkWithValidId" classname="com.mabc.MarkServiceImplTest" time="0.014"/>
+  <testcase name="returnAValidMarkWithValidId" classname="com.mabc.MarkServiceImplTest" time="0.02"/>
+  <testcase name="updateMarkWithValidProperties" classname="com.mabc.MarkServiceImplTest" time="0.018"/>
+  <testcase name="updateMarkWithValidPropertiesButRepoReturnNull" classname="com.mabc.MarkServiceImplTest" time="0.004"/>
+  <testcase name="trySaveANewMarkWithEmptyNameReturnException" classname="com.mabc.MarkServiceImplTest" time="0.012"/>
+  <testcase name="trySaveANewMarkWithNullNameReturnException" classname="com.mabc.MarkServiceImplTest" time="0.017"/>
+  <testcase name="trySaveANewMarkWithNullActiveReturnException" classname="com.mabc.MarkServiceImplTest" time="0.022"/>
+  <testcase name="saveANewMarkWithValidPropertiesButReturnRuntimeException" classname="com.mabc.MarkServiceImplTest" time="0.03"/>
+  <testcase name="saveANewMarkWithValidProperties" classname="com.mabc.MarkServiceImplTest" time="0.037"/>
+  <testcase name="tryDeleteMarkWithInvalidIdReturnException" classname="com.mabc.MarkServiceImplTest" time="0.004"/>
 </testsuite>

@@ -9,34 +9,59 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MarkServiceImpl implements MarkService {
-    private final MarkRepository markRepository;
+    private final MarkRepository repository;
 
 <span class="fc" id="L14">    public MarkServiceImpl(MarkRepository markRepository) {</span>
-<span class="fc" id="L15">        this.markRepository = markRepository;</span>
+<span class="fc" id="L15">        this.repository = markRepository;</span>
 <span class="fc" id="L16">    }</span>
 
     @Override
-    public Mark registerMark(Mark mark) {
-<span class="nc" id="L20">        return markRepository.save(mark);</span>
-    }
+    public MarkDTO saveMark(MarkDTO markDTO) {
+<span class="fc" id="L20">        this.validaDatos(markDTO);</span>
 
-    @Override
-    public Mark getMarkById(Long id) {
-<span class="nc" id="L25">        return markRepository.findById(id).orElse(null);</span>
-    }
-
-    @Override
-    public Mark updateMark(Long id, Mark mark) {
-<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (markRepository.existsById(id)) {</span>
-<span class="nc" id="L31">            mark.setId(id);</span>
-<span class="nc" id="L32">            return markRepository.save(mark);</span>
+        Mark mark;
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (markDTO.getId() == null) {</span>
+<span class="fc" id="L24">            mark = new Mark();</span>
+        } else {
+<span class="fc" id="L26">            mark = this.repository.findById(markDTO.getId()).orElse(new Mark());</span>
         }
-<span class="nc" id="L34">        return null;</span>
+
+<span class="fc" id="L29">        mark.setName(markDTO.getName());</span>
+<span class="fc" id="L30">        mark.setActive(markDTO.getActive());</span>
+
+<span class="fc" id="L32">        Mark savedMark = repository.save(mark);</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if(savedMark == null){</span>
+<span class="fc" id="L34">            return null;</span>
+        }
+<span class="fc" id="L36">        markDTO.setId(savedMark.getId());</span>
+<span class="fc" id="L37">        return markDTO;</span>
+    }
+
+    @Override
+    public MarkDTO getMarkById(Long id) {
+<span class="fc" id="L42">        Mark mark = repository.findById(id).orElse(null);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if(mark == null){</span>
+<span class="fc" id="L44">            return null;</span>
+        }
+
+<span class="fc" id="L47">        return new MarkDTO(mark.getId(), mark.getName(), mark.getActive());</span>
     }
 
     @Override
     public void deleteMark(Long id) {
-<span class="nc" id="L39">        markRepository.deleteById(id);</span>
-<span class="nc" id="L40">    }</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if(!this.repository.existsById(id)){</span>
+<span class="fc" id="L53">            throw new IllegalArgumentException(&quot;Imposible eliminar, Marca inexistente&quot;);</span>
+        }
+<span class="fc" id="L55">        repository.deleteById(id);</span>
+<span class="fc" id="L56">    }</span>
+
+    private void validaDatos(MarkDTO dto) throws IllegalArgumentException{
+<span class="fc" id="L59">        Boolean isValid = true;</span>
+<span class="fc bfc" id="L60" title="All 4 branches covered.">        isValid = dto.getName() != null &amp;&amp; !dto.getName().isEmpty();</span>
+<span class="fc bfc" id="L61" title="All 4 branches covered.">        isValid = isValid &amp;&amp; dto.getActive() != null;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if(!isValid){</span>
+<span class="fc" id="L63">            throw new IllegalArgumentException(&quot;Marca con datos no válidos o incompletos&quot;);</span>
+        }
+<span class="fc" id="L65">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
