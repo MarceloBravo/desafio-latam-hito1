@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ProductoCrudServiceImplTest{
+public class ProductServiceImplTest{
     
     private ProductServiceImpl productService;
     private CategoryServiceImpl categoryService;
@@ -33,7 +33,7 @@ public class ProductoCrudServiceImplTest{
     private MarkRepository markRepository;
 
     @BeforeEach
-    public void Setup(){
+    public void setUp(){
         this.categoryRepository =  mock(CategoryRepository.class);
         this.categoryService = new CategoryServiceImpl(categoryRepository);
         
@@ -46,7 +46,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Registra un nuevo producto con todos sus atributos válidos y retorna el producto registrado")
-    public void registerANewProduct(){
+    public void testSaveANewProduct(){
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
         Category category = new Category(1L, "Computación", true);
@@ -95,7 +95,7 @@ public class ProductoCrudServiceImplTest{
     
     @Test
     @DisplayName("Intenta Registrar un nuevo producto con una marca que no existe y lanza una excepción")
-    public void tryRegisterANewProductButMarkNotExistsAndThrowsException(){
+    public void testSaveANewProductButMarkNotExistsAndThrowsException(){
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
         Category category = new Category(1L, "Computación", true);
@@ -141,7 +141,7 @@ public class ProductoCrudServiceImplTest{
     
     @Test
     @DisplayName("Intenta Registrar un nuevo producto con una categoría que no existe y lanza una excepción")
-    public void tryRegisterANewProductButCategoryNotExistsAndThrowsException(){
+    public void testSaveANewProductButCategoryNotExistsAndThrowsException(){
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
         Category category = new Category(1L, "Computación", true);
@@ -187,7 +187,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Intenta registrar un producto con una lista de categorías con elemtos nulos y lanza una excepción controlada")
-    public void tryRegisterANewProductButCategoriesContainNullElementsAndThrowsException(){
+    public void testSaveANewProductButCategoriesContainNullElementsAndThrowsException(){
         // Arrange
         //CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
@@ -219,7 +219,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Intenta registrar un producto con categorías nulas y lanza una excepción controlada")
-    public void tryRegisterANewProductButCategoriesAreNullAndThrowsException(){
+    public void testSaveANewProductButCategoriesAreNullAndThrowsException(){
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
@@ -251,7 +251,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Intenta registrar un producto con una lista de categorías vacia y lanza una excepción controlada")
-    public void tryRegisterANewProductButCategoriesAreEmptyListAndThrowsException(){
+    public void testSaveANewProductButCategoriesAreEmptyListAndThrowsException(){
         // Arrange
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark mark = new Mark(1L, "Lenovo", true);
@@ -282,7 +282,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Actualiza un producto con todos sus atributos válidos y retorna el producto actualizado")
-    public void updateProduct(){
+    public void testUpdateProduct(){
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
         Category category = new Category(1L, "Computación", true);
@@ -333,7 +333,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Obtiene un producto por su ID y retorna el producto correspondiente")
-    public void getProductById(){
+    public void testGetProductById(){
         // Arrange
         Category category = new Category(1L, "Computación", true);
         Mark mark = new Mark(1L, "Lenovo", true);
@@ -364,7 +364,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Busca un producto inexistente por su ID y retorna nulo")
-    public void getProductByIdAndReturnsNull(){
+    public void testGetProductByIdAndReturnsNull(){
         // Arrange
         when(this.productRepository.findById(anyLong())).thenReturn(Optional.empty());
         
@@ -377,7 +377,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Elimina un producto por su ID y verifica que se haya llamado al repositorio")
-    public void deleteProductById(){
+    public void testDeleteProductById(){
         // Arrange
         Long productId = 1L;
         when(this.productRepository.existsById(anyLong())).thenReturn(true);
@@ -393,7 +393,7 @@ public class ProductoCrudServiceImplTest{
 
     @Test
     @DisplayName("Intenta eliminar un producto inexistente por su Id y Retorna una excepción")
-    public void tryToDeleteANonExistentProductAndThrowsException(){
+    public void testToDeleteANonExistentProductAndThrowsException(){
         // Arrange
         Long productId = 999L;
         when(this.productRepository.existsById(anyLong())).thenReturn(false);

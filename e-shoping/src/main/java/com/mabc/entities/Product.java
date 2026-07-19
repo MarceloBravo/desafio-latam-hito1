@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Column;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class Product {
     @JoinColumn(name = "marca_id", nullable = false)
     private Mark mark;
 
-    @OneToMany(mappedBy = "category")
+    @ManyToMany(mappedBy = "category_id")
     private List<Category> categories = new ArrayList<>();
 
     @Column(name = "nombre", nullable = false, length = 100)

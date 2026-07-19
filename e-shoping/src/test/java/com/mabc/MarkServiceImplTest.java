@@ -22,14 +22,14 @@ public class MarkServiceImplTest{
     private MarkServiceImpl service;
 
     @BeforeEach
-    public void Setup(){
+    public void setUp(){
         this.repository = mock(MarkRepository.class);
         this.service = new MarkServiceImpl(this.repository);
     }
 
     @Test
     @DisplayName("Registra una Marca nueva con todas sus propiedades válidas")
-    public void saveANewMarkWithValidProperties(){
+    public void testSaveANewMarkWithValidProperties(){
         // Arrange
         MarkDTO markDTO = new MarkDTO(null, "Lenovo", true);
         Mark mark = new Mark(1L, "Lenovo", true);
@@ -54,7 +54,7 @@ public class MarkServiceImplTest{
     
     @Test
     @DisplayName("Intenta registrar una Marca nueva con nombre vacio, retorna un error de argumento")
-    public void trySaveANewMarkWithEmptyNameReturnException(){
+    public void testSaveANewMarkWithEmptyNameReturnException(){
         // Arrange
         MarkDTO markDTO = new MarkDTO(null, "", true);
 
@@ -68,7 +68,7 @@ public class MarkServiceImplTest{
     
     @Test
     @DisplayName("Intenta registrar una Marca nueva con nombre nulo, retorna un error de argumento")
-    public void trySaveANewMarkWithNullNameReturnException(){
+    public void testSaveANewMarkWithNullNameReturnException(){
         // Arrange
         MarkDTO markDTO = new MarkDTO(null, null, true);
 
@@ -82,7 +82,7 @@ public class MarkServiceImplTest{
     
     @Test
     @DisplayName("Intenta registrar una Marca nueva con activo nulo, retorna un error de argumento")
-    public void trySaveANewMarkWithNullActiveReturnException(){
+    public void testSaveANewMarkWithNullActiveReturnException(){
         // Arrange
         MarkDTO markDTO = new MarkDTO(null, "Lenovo", null);
 
@@ -96,7 +96,7 @@ public class MarkServiceImplTest{
 
     @Test
     @DisplayName("Actualiza una Marca nueva con todas sus propiedades válidas")
-    public void updateMarkWithValidProperties(){
+    public void testUpdateMarkWithValidProperties(){
         // Arrange
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark existsMark = new Mark(1L, "Lenovo", true);
@@ -118,7 +118,7 @@ public class MarkServiceImplTest{
 
     @Test
     @DisplayName("Intenta grabar una Marca nueva con todas sus propiedades válidas pero el repositorio retorna un objeto nulo y debe retornar nulo")
-    public void updateMarkWithValidPropertiesButRepoReturnNull(){
+    public void testUpdateMarkWithValidPropertiesButRepoReturnNull(){
         // Arrange
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark existsMark = new Mark(1L, "Lenovo", true);
@@ -138,7 +138,7 @@ public class MarkServiceImplTest{
 
     @Test
     @DisplayName("Intenta registrar una Marca nueva con todas sus propiedades válidas pero genera un error al intentar grabar en el repositorio")
-    public void saveANewMarkWithValidPropertiesButReturnRuntimeException(){
+    public void testSaveANewMarkWithValidPropertiesButReturnRuntimeException(){
         // Arrange
         MarkDTO markDTO = new MarkDTO(null, "Lenovo", true);
 
@@ -160,7 +160,7 @@ public class MarkServiceImplTest{
 
     @Test
     @DisplayName("Debe retornar una marca existente a partir de un ID válido")
-    public void returnAValidMarkWithValidId(){
+    public void testReturnAValidMarkWithValidId(){
         // Arrange
         Long searchedId = 1L;
         Mark existsMark = new Mark(1L, "Lenovo", true);
@@ -178,7 +178,7 @@ public class MarkServiceImplTest{
 
     @Test
     @DisplayName("Busca una marca existente a partir de un ID no existente pero retorna nulo")
-    public void returnNullWithNotExistsId(){
+    public void testReturnNullWithNotExistsId(){
         // Arrange
         Long searchedId = 99999L;
         Mark existsMark = new Mark(1L, "Lenovo", true);
@@ -195,7 +195,7 @@ public class MarkServiceImplTest{
 
     @Test
     @DisplayName("Elimina una marca a partir de un ID existente")
-    public void deleteMarkWithValidId(){
+    public void testDeleteMarkWithValidId(){
         // Arrange
         Long searchedId = 1L;
         Mark existsMark = new Mark(1L, "Lenovo", true);
@@ -213,7 +213,7 @@ public class MarkServiceImplTest{
 
     @Test
     @DisplayName("Intenta eliminar una marca a partir de un ID inexistente, genera un error de argumento")
-    public void tryDeleteMarkWithInvalidIdReturnException(){
+    public void testDeleteMarkWithInvalidIdReturnException(){
         // Arrange
         Long searchedId = 1L;
         when(this.repository.existsById(anyLong())).thenReturn(false);

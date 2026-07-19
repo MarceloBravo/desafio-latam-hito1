@@ -50,7 +50,7 @@ public class CategoryServiceImplTest {
 
     @Test
     @DisplayName("Actualiza una nueva categoría con datos válidos")
-    public void updateCategoryWithValidData() {
+    public void testUpdateCategoryWithValidData() {
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Electronica", true);
         Category existsCategory = new Category(1L, "Electronica", true);
@@ -94,7 +94,7 @@ public class CategoryServiceImplTest {
 
     @Test
     @DisplayName("Intenta grabar una nueva categoría con datos inválidos")
-    public void trySaveCategoryWithInvalidData() {
+    public void testSaveCategoryWithInvalidData() {
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(null, "", null);
 
@@ -108,7 +108,7 @@ public class CategoryServiceImplTest {
 
     @Test
     @DisplayName("Intenta grabar una nueva categoría con todos los datos nulos")
-    public void trySaveCategoryWithAllPropertiesNull() {
+    public void testSaveCategoryWithAllPropertiesNull() {
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(null, null, null);
 
@@ -123,7 +123,7 @@ public class CategoryServiceImplTest {
 
     @Test
     @DisplayName("Obtiene una categoría a partir de un ID")
-    public void getCategoryById(){
+    public void testGetCategoryById(){
         // Arrange
         Long searchedId = 1L;
         Category category = new Category(searchedId, "Electrónica", true);
@@ -140,7 +140,7 @@ public class CategoryServiceImplTest {
 
     @Test
     @DisplayName("Obtiene un nulo a partir de un ID no existente")
-    public void getNullByInvalidId(){
+    public void testGetNullByInvalidId(){
         // Arrange
         Long searchedId = 99999L;
         when(this.categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
@@ -155,7 +155,7 @@ public class CategoryServiceImplTest {
 
     @Test
     @DisplayName("Elimina una categoría a partir de un ID existente")
-    public void deleteCategoryById(){
+    public void testDeleteCategoryById(){
         // Arrange
         Long searchedId = 1L;
         when(this.categoryRepository.existsById(anyLong())).thenReturn(true);
@@ -171,7 +171,7 @@ public class CategoryServiceImplTest {
 
     @Test
     @DisplayName("Elimina una categoría a partir de un ID inexistente")
-    public void tryDeleteCategoryByIdWithInvalidId(){
+    public void testDeleteCategoryByIdWithInvalidId(){
         // Arrange
         Long searchedId = -1L;
         when(this.categoryRepository.existsById(anyLong())).thenReturn(false);

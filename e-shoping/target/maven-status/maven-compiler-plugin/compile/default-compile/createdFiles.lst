@@ -4,7 +4,6 @@ com\mabc\services\mark\MarkService.class
 com\mabc\dto\ProductDTO.class
 com\mabc\repositories\ProductRepository.class
 com\mabc\App.class
-com\mabc\enums\enumType.class
 com\mabc\repositories\CategoryRepository.class
 com\mabc\dto\CategoryDTO.class
 com\mabc\services\category\CategoryServiceImpl.class

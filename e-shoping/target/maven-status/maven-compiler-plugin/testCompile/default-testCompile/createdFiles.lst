@@ -2,4 +2,4 @@ com\mabc\CategoryServiceImplTest.class
 com\mabc\ConsoleCoverageReporter$Counter.class
 com\mabc\MarkServiceImplTest.class
 com\mabc\ConsoleCoverageReporter.class
-com\mabc\ProductoCrudServiceImplTest.class
+com\mabc\ProductoServiceImplTest.class
