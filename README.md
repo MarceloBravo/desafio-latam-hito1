@@ -4,7 +4,7 @@ Aplicacion de comercio electronico que gestiona un carrito de compras con produc
 
 ## Tecnologias
 
-- Java 11
+- Java 25
 - Maven
 - Spring Data JPA
 - Hibernate
