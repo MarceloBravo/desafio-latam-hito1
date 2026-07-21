@@ -1,4 +1,4 @@
-# Created at 2026-07-20T20:18:08.165
+# Created at 2026-07-20T21:04:44.938
 Boot Manifest-JAR contains absolute paths in classpath 'D:\bootcamps\Java Desafio Latam\ejercicios\hito1\e-shoping\target\test-classes'
 Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
 'other' has different root
