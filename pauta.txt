@@ -1,0 +1,29 @@
+Arquitectura de Entidades de Dominio
+
+3-4 Puntos (Excelente): El repositorio integra las entidades puras estructuradas con alta cohesión y semántica clara. Código limpio y modular en inglés.
+
+2 Puntos (Competente): Las entidades están creadas pero presentan pequeñas mezclas de responsabilidades accesorias.
+
+1 Punto (Insuficiente): El código presenta acoplamiento rígido inicial, dificultando la separación de reglas.
+
+0 Puntos (No Entrega): Estructuras ausentes o inaplicables al caso planteado.
+
+Suite de Tests con JUnit 5 y Mockito
+
+3-4 Puntos (Excelente): Combina con total rigor el patrón AAA, aserciones semánticas precisas y aislamiento completo de interfaces mediante Mockito Core.
+
+2 Puntos (Competente): Implementa la suite de tests, pero mezcla fases del patrón AAA o carece de control estricto de excepciones de negocio.
+
+1 Punto (Insuficiente): Los tests carecen de aislamiento de dependencias; se evidencia lógica rígida o propensa a fallas de red.
+
+0 Puntos (No Entrega): Pruebas inconsistentes, de descarte simple o ausentes en el repositorio.
+
+Métrica de Code Coverage (4 Puntos)
+
+4 Puntos (Excelente): La suite de pruebas alcanza de forma verificable el 100% de cobertura en todos los métodos de negocio críticos, sin caminos huérfanos.
+
+2 Puntos (Competente): La cobertura se localiza entre el 80% y 99%, dejando algunas ramas lógicas secundarias sin control automatizado.
+
+1 Punto (Insuficiente): Cobertura deficiente por debajo del 80%. Existen múltiples estructuras condicionales desprotegidas.
+
+0 Puntos (No Entrega): No se configuraron herramientas de cobertura o la suite no ejecuta los componentes lógicos de producción.
