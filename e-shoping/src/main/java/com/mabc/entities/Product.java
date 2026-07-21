@@ -1,8 +1,6 @@
 package com.mabc.entities;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
@@ -13,46 +11,32 @@ import jakarta.persistence.Column;
 import java.util.List;
 import java.util.ArrayList;
 
-@Entity
-@Table(name = "productos")
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne
-    @JoinColumn(name = "marca_id", nullable = false)
     private Mark mark;
 
-    @ManyToMany(mappedBy = "category_id")
     private List<Category> categories = new ArrayList<>();
 
-    @Column(name = "nombre", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "descripcion", length = 255)
     private String description;
 
-    @Column(name = "stock", nullable = false)
     private int stock;
     
-    @Column(name = "peso", nullable = false)
     private double weight;
 
-    @Column(name = "precio_costo", nullable = false)
     private double priceCost;
 
-    @Column(name = "precio_venta", nullable = false)
     private double priceSale;
 
     public Product() {
     }
 
-    public Product(Long id, Mark mark, Category category, String name, String description, int stock, double weight, double priceCost, double priceSale) {
+    public Product(Long id, Mark mark, List<Category> categories, String name, String description, int stock, double weight, double priceCost, double priceSale) {
         this.id = id;
         this.mark = mark;
-        this.categories = new ArrayList<>();
-        this.categories.add(category);
+        this.categories = categories;
         this.name = name;
         this.description = description;
         this.stock = stock;

@@ -17,10 +17,10 @@ public class ProductDTO {
 <span class="nc" id="L17">    public ProductDTO() {</span>
 <span class="nc" id="L18">    }</span>
 
-<span class="fc" id="L20">    public ProductDTO(Long id, MarkDTO mark, CategoryDTO category, String name, String description, int stock, double weight, double priceCost, double priceSale) {</span>
+<span class="fc" id="L20">    public ProductDTO(Long id, MarkDTO mark, List&lt;CategoryDTO&gt; categories, String name, String description, int stock, double weight, double priceCost, double priceSale) {</span>
 <span class="fc" id="L21">        this.id = id;</span>
 <span class="fc" id="L22">        this.mark = mark;</span>
-<span class="fc" id="L23">        this.categories.add(category);</span>
+<span class="fc" id="L23">        this.categories = categories;</span>
 <span class="fc" id="L24">        this.name = name;</span>
 <span class="fc" id="L25">        this.description = description;</span>
 <span class="fc" id="L26">        this.stock = stock;</span>
@@ -71,7 +71,7 @@ public class ProductDTO {
 <span class="nc" id="L71">    }</span>
 
     public int getStock() {
-<span class="nc" id="L74">        return stock;</span>
+<span class="fc" id="L74">        return stock;</span>
     }
 
     public void setStock(int stock) {
@@ -79,7 +79,7 @@ public class ProductDTO {
 <span class="nc" id="L79">    }</span>
 
     public double getWeight() {
-<span class="nc" id="L82">        return weight;</span>
+<span class="fc" id="L82">        return weight;</span>
     }
 
     public void setWeight(double weight) {

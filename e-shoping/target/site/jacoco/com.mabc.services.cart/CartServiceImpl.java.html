@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">e-shoping</a> &gt; <a href="index.source.html" class="el_package">com.mabc.services.cart</a> &gt; <span class="el_source">CartServiceImpl.java</span></div><h1>CartServiceImpl.java</h1><pre class="source lang-java linenums">package com.mabc.services.cart;
+
+import com.mabc.dto.CategoryDTO;
+import com.mabc.dto.CartDTO;
+import com.mabc.dto.MarkDTO;
+import com.mabc.dto.CartItemDTO;
+import com.mabc.dto.ProductDTO;
+import com.mabc.entities.Cart;
+import com.mabc.entities.CartItem;
+import com.mabc.entities.Category;
+import com.mabc.entities.Mark;
+import com.mabc.entities.Product;
+import com.mabc.repositories.CartRepository;
+import com.mabc.repositories.ProductRepository;
+
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
+
+
+/**
+ * Implementación de la interfaz {@link CartService} que proporciona la lógica
+ * de negocio para la gestión del carrito de compras. Esta clase maneja la
+ * creación de carritos, agregado de productos, validación de stock y cálculo
+ * de subtotales.
+ */
+public class CartServiceImpl implements CartService{
+
+    /** Repositorio para el acceso a datos de carritos de compras */
+    private final CartRepository cartRepository;
+    
+    /** Repositorio para el acceso a datos de productos */
+    private final ProductRepository productRepository;
+
+    /**
+     * Constructor de la clase CartServiceImpl.
+     * Inicializa los repositorios necesarios para el acceso a datos de carritos y productos.
+     *
+     * @param cartRepository Repositorio de carritos de compras
+     * @param productRepository Repositorio de productos
+     */
+    public CartServiceImpl(
+            CartRepository cartRepository, 
+            ProductRepository productRepository
+<span class="fc" id="L47">    ){</span>
+<span class="fc" id="L48">        this.cartRepository = cartRepository;</span>
+<span class="fc" id="L49">        this.productRepository = productRepository;</span>
+<span class="fc" id="L50">    }</span>
+
+    /**
+     * Crea un nuevo carrito de compras vacío con un ID secuencial
+     * basado en el último carrito registrado en el sistema.
+     *
+     * @return Un nuevo CartDTO con el ID asignado
+     */
+    @Override
+    public CartDTO newCart(){
+<span class="fc" id="L60">        CartDTO cartDTO = new CartDTO();</span>
+<span class="fc" id="L61">        Cart lastCart = this.cartRepository.getLastCart().orElse(null);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        Long id = lastCart != null ? lastCart.getId() + 1 : 1;</span>
+<span class="fc" id="L63">        cartDTO.setId(id);</span>
+<span class="fc" id="L64">        return cartDTO;       </span>
+    }
+
+    /**
+     * Agrega un producto al carrito de compras. Valida la existencia y stock
+     * del producto, lo agrega al carrito y recalcula el subtotal.
+     *
+     * @param id Identificador del carrito
+     * @param productDTO Objeto DTO con los datos del producto a agregar
+     * @return El carrito actualizado con el nuevo producto y subtotal
+     * @throws RuntimeException Si el carrito no existe, el producto no es válido
+     *         o no hay stock suficiente
+     */
+    @Override
+    public CartDTO addItem(Long id, ProductDTO productDTO){
+<span class="fc" id="L79">        Integer stock  = this.validateProduct(productDTO);</span>
+
+<span class="fc" id="L81">        Cart cart = this.cartRepository.findById(id).orElse(null);</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if(cart == null){</span>
+<span class="fc" id="L83">            throw new RuntimeException(&quot;Cart not valid or not exists&quot;);</span>
+        }
+<span class="fc" id="L85">        cart = addItemToCart(cart, productDTO);</span>
+<span class="fc" id="L86">        Double subTotal = this.calcSubTotal(cart);</span>
+<span class="fc" id="L87">        cart.setSubTotal(subTotal);</span>
+
+<span class="fc" id="L89">        Cart savedCart = this.cartRepository.save(cart);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if(savedCart == null){</span>
+<span class="fc" id="L91">            throw new RuntimeException(&quot;Something went wrong while recording the shopping cart&quot;);</span>
+        }
+<span class="fc" id="L93">        CartDTO cartDTO = cartToDTO(savedCart);</span>
+<span class="fc" id="L94">        cartDTO.setSubTotal(subTotal);</span>
+
+<span class="fc" id="L96">        return cartDTO;</span>
+    }
+
+    /**
+     * Valida que el producto proporcionado exista en la base de datos
+     * y que tenga stock disponible.
+     *
+     * @param productDTO Objeto DTO con los datos del producto a validar
+     * @return El stock disponible del producto
+     * @throws RuntimeException Si el producto no existe o no tiene stock suficiente
+     */
+    private Integer validateProduct(ProductDTO productDTO){
+<span class="fc" id="L108">        Product product = productRepository.findById(productDTO.getId()).orElse(null);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if(product == null){</span>
+<span class="fc" id="L110">            throw new RuntimeException(&quot;Product ''&quot; + productDTO.getName() + &quot;'' not valid or not exists&quot;);</span>
+        }
+<span class="fc" id="L112">        this.validateStock(productDTO, product);</span>
+<span class="fc" id="L113">        return product.getStock();</span>
+    }
+
+    /**
+     * Valida que la cantidad solicitada del producto no exceda el stock disponible.
+     *
+     * @param productDTO Objeto DTO con los datos del producto solicitado
+     * @param product Entidad del producto con el stock actual
+     * @throws RuntimeException Si la cantidad solicitada supera el stock disponible
+     */
+    private void validateStock(ProductDTO productDTO, Product product){
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if(productDTO.getStock() &gt; product.getStock()){</span>
+<span class="fc" id="L125">            throw new RuntimeException(&quot;Insufficient stock for &quot; + product.getName());</span>
+        }
+<span class="fc" id="L127">    }</span>
+
+    /**
+     * Calcula el subtotal del carrito sumando el precio de venta por la cantidad
+     * de cada producto en el carrito.
+     *
+     * @param cart Carrito de compras cuyo subtotal se desea calcular
+     * @return El subtotal calculado como la suma de (stock * precioVenta) de cada item
+     */
+    private Double calcSubTotal(Cart cart){
+<span class="fc" id="L137">        return cart.getProducts().stream()</span>
+<span class="fc" id="L138">                .mapToDouble(cartItem -&gt; cartItem.getProduct().getStock() * cartItem.getProduct().getPriceSale())</span>
+<span class="fc" id="L139">                .sum();</span>
+    }
+
+    /**
+     * Agrega un producto al carrito de compras. Convierte los datos del DTO a entidades
+     * y crea un nuevo item de carrito con el producto y su cantidad.
+     *
+     * @param cart Carrito de compras al que se agregará el producto
+     * @param productDTO Objeto DTO con los datos del producto a agregar
+     * @return El carrito actualizado con el nuevo producto agregado
+     */
+    private Cart addItemToCart(Cart cart, ProductDTO productDTO){
+<span class="fc" id="L151">        List&lt;CartItem&gt; cartItem = cart.getProducts();</span>
+<span class="fc" id="L152">        List&lt;Category&gt; categories = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L153">        productDTO.getCategories().forEach(c -&gt; </span>
+<span class="fc" id="L154">            categories.add(new Category(c.getId(), c.getName(), c.getActive()))</span>
+        );
+
+<span class="fc" id="L157">        Mark mark = new Mark(productDTO.getMark().getId(), productDTO.getMark().getName(), productDTO.getMark().getActive());</span>
+<span class="fc" id="L158">        Product prod = new Product(productDTO.getId(), mark, categories, productDTO.getName(), productDTO.getDescription(), productDTO.getStock(), productDTO.getWeight(), productDTO.getPriceCost(), productDTO.getPriceSale());</span>
+<span class="fc" id="L159">        CartItem item = new CartItem();</span>
+<span class="fc" id="L160">        item.setProduct(prod);</span>
+<span class="fc" id="L161">        item.setCant(prod.getStock());</span>
+<span class="fc" id="L162">        item.setSubTotal(prod.getPriceSale() * prod.getStock());</span>
+<span class="fc" id="L163">        cartItem.add(item);</span>
+<span class="fc" id="L164">        cart.setProducts(cartItem);</span>
+<span class="fc" id="L165">        return cart;</span>
+    }
+
+    /**
+     * Convierte una entidad Cart a su correspondiente DTO.
+     * Mapea todos los items del carrito, incluyendo sus productos, marcas,
+     * categorías y subtotales individuales.
+     *
+     * @param cart Entidad Cart a convertir
+     * @return Objeto CartDTO con todos los datos del carrito y sus items
+     */
+    private CartDTO cartToDTO(Cart cart){
+<span class="fc" id="L177">        List&lt;CartItemDTO&gt; cartItemsDTO = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L178">        List&lt;CartItem&gt; cartItem = cart.getProducts();</span>
+<span class="fc" id="L179">        cartItem.forEach(item -&gt; {</span>
+<span class="fc" id="L180">            List&lt;CategoryDTO&gt; categories = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L181">            item.getProduct().getCategories().forEach(category -&gt; {</span>
+<span class="fc" id="L182">                categories.add(new CategoryDTO(category.getId(), category.getName(), category.getActive()));</span>
+<span class="fc" id="L183">            });</span>
+<span class="fc" id="L184">            Product prod = item.getProduct();</span>
+<span class="fc" id="L185">            MarkDTO markDTO = new MarkDTO(prod.getMark().getId(), prod.getMark().getName(), prod.getMark().getActive());</span>
+<span class="fc" id="L186">            ProductDTO prodDTO = new ProductDTO(prod.getId(), markDTO, categories, prod.getName(), prod.getDescription(), prod.getStock(), prod.getWeight(), prod.getPriceCost(), prod.getPriceSale());</span>
+<span class="fc" id="L187">            CartItemDTO itemDTO = new CartItemDTO();</span>
+<span class="fc" id="L188">            itemDTO.setProduct(prodDTO); </span>
+<span class="fc" id="L189">            itemDTO.setCant(prodDTO.getStock()); </span>
+<span class="fc" id="L190">            itemDTO.setSubTotal(prodDTO.getStock() * prodDTO.getPriceSale());</span>
+<span class="fc" id="L191">            cartItemsDTO.add(itemDTO);</span>
+<span class="fc" id="L192">        });</span>
+<span class="fc" id="L193">        CartDTO cartDTO = new CartDTO(cart.getId(), cartItemsDTO);</span>
+<span class="fc" id="L194">        return cartDTO;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

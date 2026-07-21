@@ -45,12 +45,14 @@ public class ConsoleCoverageReporter {
             }
         }
 
-        System.out.println();
+        System.out.println("--------------------------------------------------");
         System.out.println("[coverage summary]");
         if (counters.isEmpty()) {
             System.out.println("No coverage counters were found.");
             return;
         }
+        
+
 
         for (Map.Entry<String, Counter> entry : counters.entrySet()) {
             if (!"INSTRUCTION".equals(entry.getKey())
@@ -63,12 +65,13 @@ public class ConsoleCoverageReporter {
             double total = counter.covered + counter.missed;
             double percent = total == 0 ? 100.0 : (counter.covered * 100.0) / total;
 
-            System.out.printf("%s: %.2f%% (%d/%d)%n",
+            System.out.printf("%-20s %-8.2f%% (%d/%d)%n",
                     entry.getKey(),
                     percent,
                     counter.covered,
                     (int) total);
         }
+        System.out.println("--------------------------------------------------");
     }
 
     private static class Counter {

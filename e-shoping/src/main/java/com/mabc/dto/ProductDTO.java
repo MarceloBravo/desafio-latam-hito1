@@ -17,10 +17,10 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, MarkDTO mark, CategoryDTO category, String name, String description, int stock, double weight, double priceCost, double priceSale) {
+    public ProductDTO(Long id, MarkDTO mark, List<CategoryDTO> categories, String name, String description, int stock, double weight, double priceCost, double priceSale) {
         this.id = id;
         this.mark = mark;
-        this.categories.add(category);
+        this.categories = categories;
         this.name = name;
         this.description = description;
         this.stock = stock;

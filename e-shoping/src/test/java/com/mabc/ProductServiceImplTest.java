@@ -48,8 +48,12 @@ public class ProductServiceImplTest{
     @DisplayName("Registra un nuevo producto con todos sus atributos válidos y retorna el producto registrado")
     public void testSaveANewProduct(){
         // Arrange
+        List<CategoryDTO> categoriesDTO = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+        categoriesDTO.add(categoryDTO);
         Category category = new Category(1L, "Computación", true);
+        categories.add(category);
 
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark mark = new Mark(1L, "Lenovo", true);
@@ -57,7 +61,7 @@ public class ProductServiceImplTest{
         ProductDTO productDTO = new ProductDTO(
             null, 
             markDTO,
-            categoryDTO, 
+            categoriesDTO, 
             "Notebook Lenovo", 
             "Notebook Lenovo IdeaPad 310", 
             12, 
@@ -69,7 +73,7 @@ public class ProductServiceImplTest{
         Product product = new Product(
             1L, 
             mark,
-            category, 
+            categories, 
             "Notebook Lenovo", 
             "Notebook Lenovo IdeaPad 310", 
             12, 
@@ -97,8 +101,12 @@ public class ProductServiceImplTest{
     @DisplayName("Intenta Registrar un nuevo producto con una marca que no existe y lanza una excepción")
     public void testSaveANewProductButMarkNotExistsAndThrowsException(){
         // Arrange
+        List<CategoryDTO> categoriesDTO = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+        categoriesDTO.add(categoryDTO);
         Category category = new Category(1L, "Computación", true);
+        categories.add(category);
 
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark mark = new Mark(1L, "Asus", true);
@@ -106,7 +114,7 @@ public class ProductServiceImplTest{
         ProductDTO productDTO = new ProductDTO(
             null, 
             markDTO,
-            categoryDTO, 
+            categoriesDTO, 
             "Notebook Lenovo", 
             "Notebook Lenovo IdeaPad 310", 
             12, 
@@ -118,7 +126,7 @@ public class ProductServiceImplTest{
         Product product = new Product(
             1L, 
             mark,
-            category, 
+            categories, 
             "Notebook Lenovo", 
             "Notebook Lenovo IdeaPad 310", 
             12, 
@@ -143,8 +151,12 @@ public class ProductServiceImplTest{
     @DisplayName("Intenta Registrar un nuevo producto con una categoría que no existe y lanza una excepción")
     public void testSaveANewProductButCategoryNotExistsAndThrowsException(){
         // Arrange
+        List<CategoryDTO> categoriesDTO = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+        categoriesDTO.add(categoryDTO);
         Category category = new Category(1L, "Computación", true);
+        categories.add(category);
 
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark mark = new Mark(1L, "Asus", true);
@@ -152,7 +164,7 @@ public class ProductServiceImplTest{
         ProductDTO productDTO = new ProductDTO(
             null, 
             markDTO,
-            categoryDTO, 
+            categoriesDTO, 
             "Notebook Lenovo", 
             "Notebook Lenovo IdeaPad 310", 
             12, 
@@ -164,7 +176,7 @@ public class ProductServiceImplTest{
         Product product = new Product(
             1L, 
             mark,
-            category, 
+            categories, 
             "Notebook Lenovo", 
             "Notebook Lenovo IdeaPad 310", 
             12, 
@@ -212,7 +224,7 @@ public class ProductServiceImplTest{
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> this.productService.saveProduct(productDTO));
         assertEquals("Category not exist", exception.getMessage());
 
-        verify(this.categoryRepository, times(1)).findAll();
+        verify(this.categoryRepository, times(0)).findAll();
         verify(this.markRepository, times(1)).findById(productDTO.getMark().getId());
         verify(this.productRepository, times(0)).save(any(Product.class));
     }
@@ -221,14 +233,16 @@ public class ProductServiceImplTest{
     @DisplayName("Intenta registrar un producto con categorías nulas y lanza una excepción controlada")
     public void testSaveANewProductButCategoriesAreNullAndThrowsException(){
         // Arrange
+        List<CategoryDTO> categoriesDTO = new ArrayList<>();
         CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+        categoriesDTO.add(categoryDTO);
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark mark = new Mark(1L, "Lenovo", true);
 
         ProductDTO productDTO = new ProductDTO(
             null,
             markDTO,
-            categoryDTO,
+            categoriesDTO,
             "Notebook Lenovo",
             "Notebook Lenovo IdeaPad 310",
             12,
@@ -284,8 +298,10 @@ public class ProductServiceImplTest{
     @DisplayName("Actualiza un producto con todos sus atributos válidos y retorna el producto actualizado")
     public void testUpdateProduct(){
         // Arrange
-        CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
-        Category category = new Category(1L, "Computación", true);
+        List<CategoryDTO> categoriesDTO = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
+        categoriesDTO.add(new CategoryDTO(1L, "Computación", true));
+        categories.add(new Category(1L, "Computación", true));
 
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark mark = new Mark(1L, "Lenovo", true);
@@ -293,7 +309,7 @@ public class ProductServiceImplTest{
         ProductDTO productDTO = new ProductDTO(
                 1L, 
             markDTO,
-            categoryDTO, 
+            categoriesDTO, 
             "Notebook Lenovo", 
             "Notebook Lenovo IdeaPad 310", 
             12, 
@@ -305,7 +321,7 @@ public class ProductServiceImplTest{
         Product product = new Product(
             1L, 
             mark,
-            category, 
+            categories, 
             "Notebook Asus", 
             "Notebook Asus Vivobook", 
             12, 
@@ -315,7 +331,7 @@ public class ProductServiceImplTest{
         );
 
         List<Long> categoryIds = productDTO.getCategories().stream().map(CategoryDTO::getId).toList();
-        when(this.categoryRepository.findAll()).thenReturn(List.of(category));
+        when(this.categoryRepository.findAll()).thenReturn(categories);
         when(this.markRepository.findById(anyLong())).thenReturn(Optional.of(mark));        
         when(this.productRepository.save(any(Product.class))).thenReturn(product);
         
@@ -335,13 +351,14 @@ public class ProductServiceImplTest{
     @DisplayName("Obtiene un producto por su ID y retorna el producto correspondiente")
     public void testGetProductById(){
         // Arrange
-        Category category = new Category(1L, "Computación", true);
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category(1L, "Computación", true));
         Mark mark = new Mark(1L, "Lenovo", true);
         
         Product product = new Product(
             1L, 
             mark,
-            category, 
+            categories, 
             "Notebook Lenovo", 
             "Notebook Lenovo IdeaPad 310", 
             12, 
