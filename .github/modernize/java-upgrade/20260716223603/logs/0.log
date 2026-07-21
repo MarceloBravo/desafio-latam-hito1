@@ -1,0 +1,10 @@
+2026-07-16T22:36:05.482Z [INFO] ----------------------invoke appmod-list-mavens----------------------
+2026-07-16T22:36:05.499Z [INFO] [Tool.invoke]({name: appmod-list-mavens, modelId: auto, input: {
+  "includeVersion": true,
+  "projectPath": "d:\\bootcamps\\Java Desafio Latam\\ejercicios\\hito1"
+}}).
+2026-07-16T22:36:05.500Z [INFO] [Tool.invoke] do invoke.
+2026-07-16T22:36:09.700Z [INFO] [Tool.invoke]({result: {
+  "message": "We found following maven installations in your system:\n\n1. Maven 3.9.12\n   📁 Path: C:\\Maven\\apache-maven-3.9.12\\bin\n   🏷️ Source: MAVEN_HOME,PATH\n\nTotal: 1 Maven installation(s) found"
+}}).
+2026-07-16T22:36:09.700Z [INFO] ----------------------invoked appmod-list-mavens----------------------
