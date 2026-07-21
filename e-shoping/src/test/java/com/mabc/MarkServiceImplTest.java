@@ -98,9 +98,20 @@ public class MarkServiceImplTest{
     @DisplayName("Actualiza una Marca nueva con todas sus propiedades válidas")
     public void testUpdateMarkWithValidProperties(){
         // Arrange
-        MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
-        Mark existsMark = new Mark(1L, "Lenovo", true);
-        Mark savedMark = new Mark(1L, "Lenovo", true);
+        MarkDTO markDTO = new MarkDTO();
+        markDTO.setId(1L);
+        markDTO.setName("Lenovo");
+        markDTO.setActive(true);
+
+        Mark existsMark = new Mark();
+        existsMark.setId(1L);
+        existsMark.setName("Lenovo");
+        existsMark.setActive(true);
+
+        Mark savedMark = new Mark();
+        savedMark.setId(1L);
+        savedMark.setName("Lenovo");
+        savedMark.setActive(true);
 
         when(this.repository.findById(anyLong())).thenReturn(Optional.of(existsMark));
         when(this.repository.save(any(Mark.class))).thenReturn(savedMark);
@@ -120,9 +131,20 @@ public class MarkServiceImplTest{
     @DisplayName("Intenta grabar una Marca nueva con todas sus propiedades válidas pero el repositorio retorna un objeto nulo y debe retornar nulo")
     public void testUpdateMarkWithValidPropertiesButRepoReturnNull(){
         // Arrange
-        MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
-        Mark existsMark = new Mark(1L, "Lenovo", true);
-        Mark savedMark = new Mark(1L, "Lenovo", true);
+        MarkDTO markDTO = new MarkDTO();
+        markDTO.setId(1L);
+        markDTO.setName("Lenovo");
+        markDTO.setActive(true);
+
+        Mark existsMark = new Mark();
+        existsMark.setId(1L);
+        existsMark.setName("Lenovo");
+        existsMark.setActive(true);
+
+        Mark savedMark = new Mark();
+        savedMark.setId(1L);
+        savedMark.setName("Lenovo");
+        savedMark.setActive(true);
 
         when(this.repository.findById(anyLong())).thenReturn(Optional.of(existsMark));
         when(this.repository.save(any(Mark.class))).thenReturn(null);
@@ -163,7 +185,10 @@ public class MarkServiceImplTest{
     public void testReturnAValidMarkWithValidId(){
         // Arrange
         Long searchedId = 1L;
-        Mark existsMark = new Mark(1L, "Lenovo", true);
+        Mark existsMark = new Mark();
+        existsMark.setId(1L);
+        existsMark.setName("Lenovo");
+        existsMark.setActive(true);
 
         when(this.repository.findById(anyLong())).thenReturn(Optional.of(existsMark));
 

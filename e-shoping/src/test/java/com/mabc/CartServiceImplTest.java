@@ -95,17 +95,54 @@ public class CartServiceImplTest {
         List<CartItemDTO> productsDTO = new ArrayList<>();
         List<CategoryDTO> categoriesDTO = new ArrayList<>();
         List<Category> categories = new ArrayList<>();
-        CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1L);
+        categoryDTO.setName("Computación");
+        categoryDTO.setActive(true);
         categoriesDTO.add(categoryDTO);
-        Category category = new Category(1L, "Computación", true);
+
+        Category category = new Category();
+        category.setId(1L);
+        category.setName("Computación");
+        category.setActive(true);
         categories.add(category);
-        MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
-        ProductDTO productDTO = new ProductDTO( 2L, markDTO, categoriesDTO, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12, 1500, 650000, 800000);
-        Product product = new Product( 2L, this.mark, categories, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12, 1500, 650000, 800000);
+
+        MarkDTO markDTO = new MarkDTO();
+        markDTO.setId(1L);
+        markDTO.setName("Lenovo");
+        markDTO.setActive(true);
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(2L);
+        productDTO.setMark(markDTO);
+        productDTO.setCategories(categoriesDTO);
+        productDTO.setName("Notebook Lenovo");
+        productDTO.setDescription("Notebook Lenovo IdeaPad 310");
+        productDTO.setStock(12);
+        productDTO.setWeight(1500);
+        productDTO.setPriceCost(650000);
+        productDTO.setPriceSale(800000);
+
+        Product product = new Product();
+        product.setId(2L);
+        product.setMark(this.mark);
+        product.setCategories(categories);
+        product.setName("Notebook Lenovo");
+        product.setDescription("Notebook Lenovo IdeaPad 310");
+        product.setStock(12);
+        product.setWeight(1500);
+        product.setPriceCost(650000);
+        product.setPriceSale(800000);
+
         Cart cart = new Cart(1L, this.products);
+
         CartItemDTO cartItemDTO = new CartItemDTO(1L, productDTO, 1, 100.0);
         productsDTO.add(cartItemDTO);
-        CartDTO cartDTO = new CartDTO(1L, productsDTO);
+
+        CartDTO cartDTO = new CartDTO();
+        cartDTO.setId(1L);
+        cartDTO.setProducts(productsDTO);
 
         List<Product> productList = new ArrayList<>();
         productList.add(product);
@@ -135,17 +172,58 @@ public class CartServiceImplTest {
         List<CartItemDTO> productsDTO = new ArrayList<>();
         List<CategoryDTO> categoriesDTO = new ArrayList<>();
         List<Category> categories = new ArrayList<>();
-        CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1L);
+        categoryDTO.setName("Computación");
+        categoryDTO.setActive(true);
         categoriesDTO.add(categoryDTO);
-        Category category = new Category(1L, "Computación", true);
+
+        Category category = new Category();
+        category.setId(1L);
+        category.setName("Computación");
+        category.setActive(true);
         categories.add(category);
-        MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
-        ProductDTO productDTO = new ProductDTO( 99999L, markDTO, categoriesDTO, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12, 1500, 650000, 800000);
-        Product product = new Product( 99999L, this.mark, categories, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12, 1500, 650000, 800000);
+
+        MarkDTO markDTO = new MarkDTO();
+        markDTO.setId(1L);
+        markDTO.setName("Lenovo");
+        markDTO.setActive(true);
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(99999L);
+        productDTO.setMark(markDTO);
+        productDTO.setCategories(categoriesDTO);
+        productDTO.setName("Notebook Lenovo");
+        productDTO.setDescription("Notebook Lenovo IdeaPad 310");
+        productDTO.setStock(12);
+        productDTO.setWeight(1500);
+        productDTO.setPriceCost(650000);
+        productDTO.setPriceSale(800000);
+
+        Product product = new Product();
+        product.setId(99999L);
+        product.setMark(this.mark);
+        product.setCategories(categories);
+        product.setName("Notebook Lenovo");
+        product.setDescription("Notebook Lenovo IdeaPad 310");
+        product.setStock(12);
+        product.setWeight(1500);
+        product.setPriceCost(650000);
+        product.setPriceSale(800000);
+
         Cart cart = new Cart(1L, this.products);
-        CartItemDTO cartItemDTO = new CartItemDTO(1L, productDTO, 1, 100.0);
+
+        CartItemDTO cartItemDTO = new CartItemDTO();
+        cartItemDTO.setId(1L);
+        cartItemDTO.setProduct(productDTO);
+        cartItemDTO.setCant(1);
+        cartItemDTO.setSubTotal(100.0);
         productsDTO.add(cartItemDTO);
-        CartDTO cartDTO = new CartDTO(1L, productsDTO);
+
+        CartDTO cartDTO = new CartDTO();
+        cartDTO.setId(1L);
+        cartDTO.setProducts(productsDTO);
 
         List<Product> productList = new ArrayList<>();
         productList.add(product);
@@ -172,17 +250,58 @@ public class CartServiceImplTest {
         List<CartItemDTO> productsDTO = new ArrayList<>();
         List<CategoryDTO> categoriesDTO = new ArrayList<>();
         List<Category> categories = new ArrayList<>();
-        CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1L);
+        categoryDTO.setName("Computación");
+        categoryDTO.setActive(true);
         categoriesDTO.add(categoryDTO);
-        Category category = new Category(1L, "Computación", true);
+
+        Category category = new Category();
+        category.setId(1L);
+        category.setName("Computación");
+        category.setActive(true);
         categories.add(category);
-        MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
-        ProductDTO productDTO = new ProductDTO( 99999L, markDTO, categoriesDTO, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12, 1500, 650000, 800000);
-        Product product = new Product( 99999L, this.mark, categories, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12, 1500, 650000, 800000);
+
+        MarkDTO markDTO = new MarkDTO();
+        markDTO.setId(1L);
+        markDTO.setName("Lenovo");
+        markDTO.setActive(true);
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(99999L);
+        productDTO.setMark(markDTO);
+        productDTO.setCategories(categoriesDTO);
+        productDTO.setName("Notebook Lenovo");
+        productDTO.setDescription("Notebook Lenovo IdeaPad 310");
+        productDTO.setStock(12);
+        productDTO.setWeight(1500);
+        productDTO.setPriceCost(650000);
+        productDTO.setPriceSale(800000);
+
+        Product product = new Product();
+        product.setId(99999L);
+        product.setMark(this.mark);
+        product.setCategories(categories);
+        product.setName("Notebook Lenovo");
+        product.setDescription("Notebook Lenovo IdeaPad 310");
+        product.setStock(12);
+        product.setWeight(1500);
+        product.setPriceCost(650000);
+        product.setPriceSale(800000);
+
         Cart cart = new Cart(99999L, this.products);
-        CartItemDTO cartItemDTO = new CartItemDTO(1L, productDTO, 1, 100.0);
+
+        CartItemDTO cartItemDTO = new CartItemDTO();
+        cartItemDTO.setId(1L);
+        cartItemDTO.setProduct(productDTO);
+        cartItemDTO.setCant(1);
+        cartItemDTO.setSubTotal(100.0);
         productsDTO.add(cartItemDTO);
-        CartDTO cartDTO = new CartDTO(1L, productsDTO);
+
+        CartDTO cartDTO = new CartDTO();
+        cartDTO.setId(1L);
+        cartDTO.setProducts(productsDTO);
 
         List<Product> productList = new ArrayList<>();
         productList.add(product);
@@ -208,17 +327,58 @@ public class CartServiceImplTest {
         List<CartItemDTO> productsDTO = new ArrayList<>();
         List<CategoryDTO> categoriesDTO = new ArrayList<>();
         List<Category> categories = new ArrayList<>();
-        CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1L);
+        categoryDTO.setName("Computación");
+        categoryDTO.setActive(true);
         categoriesDTO.add(categoryDTO);
-        Category category = new Category(1L, "Computación", true);
+
+        Category category = new Category();
+        category.setId(1L);
+        category.setName("Computación");
+        category.setActive(true);
         categories.add(category);
-        MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
-        ProductDTO productDTO = new ProductDTO( 99999L, markDTO, categoriesDTO, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12000, 1500, 650000, 800000);
-        Product product = new Product( 99999L, this.mark, categories, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12, 1500, 650000, 800000);
+
+        MarkDTO markDTO = new MarkDTO();
+        markDTO.setId(1L);
+        markDTO.setName("Lenovo");
+        markDTO.setActive(true);
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(99999L);
+        productDTO.setMark(markDTO);
+        productDTO.setCategories(categoriesDTO);
+        productDTO.setName("Notebook Lenovo");
+        productDTO.setDescription("Notebook Lenovo IdeaPad 310");
+        productDTO.setStock(12000);
+        productDTO.setWeight(1500);
+        productDTO.setPriceCost(650000);
+        productDTO.setPriceSale(800000);
+
+        Product product = new Product();
+        product.setId(99999L);
+        product.setMark(this.mark);
+        product.setCategories(categories);
+        product.setName("Notebook Lenovo");
+        product.setDescription("Notebook Lenovo IdeaPad 310");
+        product.setStock(12);
+        product.setWeight(1500);
+        product.setPriceCost(650000);
+        product.setPriceSale(800000);
+
         Cart cart = new Cart(1L, this.products);
-        CartItemDTO cartItemDTO = new CartItemDTO(1L, productDTO, 1, 100.0);
+
+        CartItemDTO cartItemDTO = new CartItemDTO();
+        cartItemDTO.setId(1L);
+        cartItemDTO.setProduct(productDTO);
+        cartItemDTO.setCant(1);
+        cartItemDTO.setSubTotal(100.0);
         productsDTO.add(cartItemDTO);
-        CartDTO cartDTO = new CartDTO(1L, productsDTO);
+
+        CartDTO cartDTO = new CartDTO();
+        cartDTO.setId(1L);
+        cartDTO.setProducts(productsDTO);
 
         List<Product> productList = new ArrayList<>();
         productList.add(product);
@@ -226,7 +386,6 @@ public class CartServiceImplTest {
 
         when(productRepository.findById(anyLong())).thenReturn(Optional.of(product));
         when(cartRepository.findById(anyLong())).thenReturn(Optional.of(cart));
-        //when(cartRepository.save(any(Cart.class))).thenReturn(null);
 
          // Act / Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> this.service.addItem(1L, productDTO));
@@ -245,17 +404,58 @@ public class CartServiceImplTest {
         List<CartItemDTO> productsDTO = new ArrayList<>();
         List<CategoryDTO> categoriesDTO = new ArrayList<>();
         List<Category> categories = new ArrayList<>();
-        CategoryDTO categoryDTO = new CategoryDTO(1L, "Computación", true);
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1L);
+        categoryDTO.setName("Computación");
+        categoryDTO.setActive(true);
         categoriesDTO.add(categoryDTO);
-        Category category = new Category(1L, "Computación", true);
+
+        Category category = new Category();
+        category.setId(1L);
+        category.setName("Computación");
+        category.setActive(true);
         categories.add(category);
-        MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
-        ProductDTO productDTO = new ProductDTO( 99999L, markDTO, categoriesDTO, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 1, 1500, 650000, 800000);
-        Product product = new Product( 99999L, this.mark, categories, "Notebook Lenovo", "Notebook Lenovo IdeaPad 310", 12, 1500, 650000, 800000);
+
+        MarkDTO markDTO = new MarkDTO();
+        markDTO.setId(1L);
+        markDTO.setName("Lenovo");
+        markDTO.setActive(true);
+
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(99999L);
+        productDTO.setMark(markDTO);
+        productDTO.setCategories(categoriesDTO);
+        productDTO.setName("Notebook Lenovo");
+        productDTO.setDescription("Notebook Lenovo IdeaPad 310");
+        productDTO.setStock(1);
+        productDTO.setWeight(1500);
+        productDTO.setPriceCost(650000);
+        productDTO.setPriceSale(800000);
+
+        Product product = new Product();
+        product.setId(99999L);
+        product.setMark(this.mark);
+        product.setCategories(categories);
+        product.setName("Notebook Lenovo");
+        product.setDescription("Notebook Lenovo IdeaPad 310");
+        product.setStock(12);
+        product.setWeight(1500);
+        product.setPriceCost(650000);
+        product.setPriceSale(800000);
+
         Cart cart = new Cart(1L, this.products);
-        CartItemDTO cartItemDTO = new CartItemDTO(1L, productDTO, 1, 100.0);
+
+        CartItemDTO cartItemDTO = new CartItemDTO();
+        cartItemDTO.setId(1L);
+        cartItemDTO.setProduct(productDTO);
+        cartItemDTO.setCant(1);
+        cartItemDTO.setSubTotal(100.0);
         productsDTO.add(cartItemDTO);
-        CartDTO cartDTO = new CartDTO(1L, productsDTO);
+
+        CartDTO cartDTO = new CartDTO();
+        cartDTO.setId(1L);
+        cartDTO.setProducts(productsDTO);
 
         List<Product> productList = new ArrayList<>();
         productList.add(product);

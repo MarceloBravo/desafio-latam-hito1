@@ -52,9 +52,20 @@ public class CategoryServiceImplTest {
     @DisplayName("Actualiza una nueva categoría con datos válidos")
     public void testUpdateCategoryWithValidData() {
         // Arrange
-        CategoryDTO categoryDTO = new CategoryDTO(1L, "Electronica", true);
-        Category existsCategory = new Category(1L, "Electronica", true);
-        Category savedCategory = new Category(1L, "Electronica", true);
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(1L);
+        categoryDTO.setName("Electronica");
+        categoryDTO.setActive(true);
+
+        Category existsCategory = new Category();
+        existsCategory.setId(1L);
+        existsCategory.setName("Electronica");
+        existsCategory.setActive(true);
+
+        Category savedCategory = new Category();
+        savedCategory.setId(1L);
+        savedCategory.setName("Electronica");
+        savedCategory.setActive(true);
 
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.of(existsCategory));
         when(categoryRepository.save(any(Category.class))).thenReturn(savedCategory);
@@ -74,7 +85,10 @@ public class CategoryServiceImplTest {
     public void testSaveCategoryWithNullIdDoesNotQueryByNullId() {
         // Arrange
         CategoryDTO categoryDTO = new CategoryDTO(null, "Electronics", true);
-        Category savedCategory = new Category(1L, "Electronics", true);
+        Category savedCategory = new Category();
+        savedCategory.setId(1L);
+        savedCategory.setName("Electronics");
+        savedCategory.setActive(true);
 
         when(categoryRepository.save(any(Category.class))).thenReturn(savedCategory);
 
@@ -126,7 +140,10 @@ public class CategoryServiceImplTest {
     public void testGetCategoryById(){
         // Arrange
         Long searchedId = 1L;
-        Category category = new Category(searchedId, "Electrónica", true);
+        Category category = new Category();
+        category.setId(searchedId);
+        category.setName("Electrónica");
+        category.setActive(true);
         when(this.categoryRepository.findById(anyLong())).thenReturn(Optional.of(category));
 
         // Act

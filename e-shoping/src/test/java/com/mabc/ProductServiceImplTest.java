@@ -300,8 +300,18 @@ public class ProductServiceImplTest{
         // Arrange
         List<CategoryDTO> categoriesDTO = new ArrayList<>();
         List<Category> categories = new ArrayList<>();
-        categoriesDTO.add(new CategoryDTO(1L, "Computación", true));
-        categories.add(new Category(1L, "Computación", true));
+
+        CategoryDTO catDTO = new CategoryDTO();
+        catDTO.setId(1L);
+        catDTO.setName("Computación");
+        catDTO.setActive(true);
+        categoriesDTO.add(catDTO);
+
+        Category cat = new Category();
+        cat.setId(1L);
+        cat.setName("Computación");
+        cat.setActive(true);
+        categories.add(cat);
 
         MarkDTO markDTO = new MarkDTO(1L, "Lenovo", true);
         Mark mark = new Mark(1L, "Lenovo", true);
